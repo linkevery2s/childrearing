@@ -20,21 +20,6 @@
 
     <script src="https://cdn.tailwindcss.com"></script>
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css"
-        integrity="sha512-Zcn6bjR/8RZbLEpLIeOwNtzREBAJnUKESxces60Mpoj+2okopSAcSUIUOseddDm0cxnGQzxIR7vJgsLZbdLE3w=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"
-        integrity="sha512-BwHfrr4c9kmRkLw6iXFdzcdWV/PGkVgiIyIWLLlTSXzWQzxuSg4DiQUCpauz/EWjgk5TYQqX/kvn9pG1NpYfqg=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.min.js"
-        integrity="sha512-8BqQ2RH4L4sQhV41ZB24fUc1nGcjmrTA6DILV/aTPYuUzo+wBdYdp0fvQ76Sxgf36p787CXF7TktWlcxu/zyOg=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"
-        integrity="sha512-cUoWMYmv4H9TGP4hbm1mIjYo90WzIQFo/5jj+P5tQcDTf+iVR59RyIj/a9fRsBxzxt5Dnv/Ex7MzRIxcDwaOLw=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
         integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -45,6 +30,14 @@
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"
         integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 
+    <link rel="manifest" href="./manifest.json">
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('./service-worker.js').then(function () {
+                console.log('Service Worker Registered');
+            });
+        }
+    </script>
 
     <style>
         html,
@@ -57,16 +50,40 @@
             font-family: "Meiryo", "Hiragino Maru Gothic Pro", sans-serif;
         }
 
+        body {
+            background-attachment: fixed;
+            background-image: url("./images/map.jpg");
+            background-position: top center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        /* iOS用  */
+        body::before {
+            content: "";
+            display: block;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            width: 100%;
+            height: 100vh;
+            background-repeat: no-repeat;
+            background-position: top center;
+            background-image: url("./images/map.jpg");
+            background-size: cover;
+        }
+
         #header {
             position: fixed;
-            padding: .5em;
+            padding: .7em;
             border-radius: 30px;
             z-index: 2;
             width: 90%;
             max-width: 600px;
             background: #ffffff;
             left: 50%;
-            top: 30px;
+            top: 20px;
             transform: translate(-50%);
             border: 3px solid #f4b3c2;
 
@@ -77,15 +94,22 @@
 
         }
 
-        #map {
-            position: fixed;
+        #main {
+            position: absolute;
             margin: 0;
             padding: 0;
             width: 100%;
             height: 100%;
-            top: 50%;
+            max-width: 600px;
+            top: 120px;
             left: 50%;
-            transform: translate(-50%, -50%);
+            transform: translate(-50%);
+        }
+
+        #menu {
+            background: rgba(244, 179, 194, .9);
+            border-radius: .5em;
+            cursor: pointer;
         }
 
         .leaflet-control-attribution {
@@ -137,88 +161,126 @@
         .footer p a {
             border-bottom: 1px dotted #000000;
         }
+
+        #html-iframe {
+            display: none;
+        }
+
+        #back-button {
+            position: fixed;
+            background: rgba(255, 255, 255, .9);
+            top: 15px;
+            left: 15px;
+            z-index: 100;
+            border: 1px solid #000000;
+            border-radius: .3em;
+            display: none;
+            cursor: pointer;
+        }
     </style>
-
-    <script type="module">
-
-        onload = async () => {
-
-            let image = {
-                url: './images/map.jpg',
-                width: 1200,
-                height: 1200
-            };
-
-            let minZoom = 6, maxZoom = 6, DefalultZoom = 6;
-
-            const map = L.map('map', {
-                crs: L.CRS.Simple,
-                minZoom: minZoom,
-                maxZoom: maxZoom,
-                zoomControl: false
-            });
-
-            let imageBounds = L.latLngBounds([
-                map.unproject([0, image.height], DefalultZoom),
-                map.unproject([image.width, 0], DefalultZoom)
-            ]);
-
-            const tiles = L.tileLayer("", {
-                attribution: "&copy; <a href='https://azgaar.github.io/Fantasy-Map-Generator/' target='_blank'>Azgaar's Fantasy Map Generator</a>"
-            }).addTo(map);
-
-            //map.fitBounds(imageBounds);
-            map.fitBounds(imageBounds);
-            map.setMaxBounds(imageBounds.pad(0.5));
-
-            L.imageOverlay(image.url, imageBounds).addTo(map);
-
-        };
-
-    </script>
 
 </head>
 
 <body>
 
     <div id="header">
+        <center>
+            <div class="grid gap-4 grid-cols-10 grid-rows-1">
+                <div class="title-icon text-center"><i class="fa-regular fa-face-smile-beam fa-lg"></i></div>
+                <div class="title col-span-7">すくすく子育てライフ</div>
+            </div>
+        </center>
+    </div>
 
-        <div class="grid gap-4 grid-cols-10 grid-rows-1">
-            <div class="title-icon text-center"><i class="fa-regular fa-face-smile-beam fa-lg"></i></div>
-            <div class="title col-span-7 text-center"><span class="title">すくすく子育てライフ</span></div>
+    <!-- メインコンテンツ -->
+    <div id="main">
+
+        <div class="grid gap-2 grid-cols-3 grid-rows-7 mx-5">
+
+            <div id="menu" class="babygrowth text-center text-sm p-3">
+                赤ちゃん成長記録
+                <img src="./images/back.jpg" width="100%" alt="赤ちゃんの写真" class="mt-3">
+            </div>
+
+            <div id="menu" class="parentmap text-center text-sm p-3">
+                ママパパマップ
+                <img src="./images/parentmap.jpg" width="100%" alt="ママパパマップの写真" class="mt-3">
+            </div>
+
         </div>
 
     </div>
 
-    <div id="map"></div>
+    <div id="html-iframe"></div>
 
-
-    <div class="sns-fb">
-
-        <div class="fb-share-button" data-href="https://childrearinglife.netlify.app/" data-layout="button_count"
-            data-size="small"></div>
-
-    </div>
+    <div id="back-button" class="p-2">戻る</div>
 
     <!-- フッター -->
     <div id="footer" class="footer p-2 text-center">
-
+        <div class="sns-fb">
+            <div class="fb-share-button" data-href="https://childrearinglife.netlify.app/" data-layout="button_count"
+                data-size="small"></div>
+        </div>
         <div class="grid gap-4 grid-cols-3 grid-rows-1">
             <a href="./index.html">
                 <div><i class="fa-solid fa-house"></i> ホーム</div>
             </a>
             <div class="manual-btn"><i class="fa-solid fa-book"></i> 使い方</div>
-            <div class="search-btn"><i class="fa-regular fa-circle-question"></i> お問合せ</div>
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSf-WMoBJRTdA1bmN_SmQ-bsNGeLs1l737d3c9BUNuErjH-KBw/viewform"
+                target="_blank">
+                <div class="question-btn"><i class="fa-regular fa-circle-question"></i> お問合せ</div>
+            </a>
         </div>
-
         <p class="text-xs mt-1"><a href="https://github.com/linkevery2s/childrearing" target="_blank">src on GitHub</a>.
             &copy <a href="https://hitoshi2s.netlify.app/" target="_blank">齋藤 仁志</a>.
-            <!--<span
-                id="update-btn">更新情報</span>　<a
-                href="https://docs.google.com/forms/d/e/1FAIpQLSf-WMoBJRTdA1bmN_SmQ-bsNGeLs1l737d3c9BUNuErjH-KBw/viewform"
-                target="_blank">お問い合わせ</a>-->
         </p>
     </div>
+
+    <script type="module">
+
+        const babygrowth = document.querySelector(".babygrowth");
+        const parentmap = document.querySelector(".parentmap");
+        const html_iframe = document.querySelector("#html-iframe");
+        const back_button = document.querySelector("#back-button");
+
+        babygrowth.addEventListener("click", () => {
+
+            html_iframe.innerHTML = '<iframe src="./babygrowth.html" width="100%" height="100%"></iframe>';
+            $('#header').fadeOut();
+            $('#main').fadeOut();
+            $('#footer').fadeOut();
+            $('#html-iframe').fadeIn();
+            $('#back-button').fadeIn();
+
+        }
+        );
+
+        parentmap.addEventListener("click", () => {
+
+            html_iframe.innerHTML = '<iframe src="./parentmap.html" width="100%" height="100%"></iframe>';
+            $('#header').fadeOut();
+            $('#main').fadeOut();
+            $('#footer').fadeOut();
+            $('#html-iframe').fadeIn();
+            $('#back-button').fadeIn();
+
+        }
+        );
+
+        back_button.addEventListener("click", () => {
+
+            $('#header').fadeIn();
+            $('#main').fadeIn();
+            $('#footer').fadeIn();
+            $('#html-iframe').fadeOut();
+            $('#back-button').fadeOut();
+
+        });
+
+
+
+
+    </script>
 
     <!-- Facebookシェアボタン -->
     <div id="fb-root"></div>

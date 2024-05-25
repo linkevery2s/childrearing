@@ -1,0 +1,128 @@
+<!DOCTYPE HTML>
+<html lang="ja">
+<title>すくすく赤ちゃん成長記録</title>
+<head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# article: http://ogp.me/ns/article#">
+  <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" >
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <script src="https://d3js.org/d3.v5.min.js"></script>
+  <!-- tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    html,
+    body {
+      padding: 0;
+      margin: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    body{
+      font-family: "Meiryo","Hiragino Maru Gothic Pro",sans-serif;
+      background-attachment: fixed;
+      background-image: url("./images/back.jpg");
+      background-position: top center;
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+
+    /* iOS用  */
+    body::before{
+      content:"";
+      display:block;
+      position:fixed;
+      top:0;
+      left:0;
+      z-index:-1;
+      width:100%;
+      height:100vh;
+      background-repeat: no-repeat;
+      background-position: top center;
+      background-image:url("./images/back.jpg");
+      background-size: cover;
+    }
+
+    ul {
+      padding: 0;
+      margin: 0;
+    }
+
+    .container{
+      background: rgba(255,255,255,0.7);
+      max-width: 600px;
+      padding: 0;
+      margin: 0;
+
+    }
+
+    li {
+      width: 95%;
+      margin: 0;
+      line-height: 2em;
+      text-align: left;
+      list-style: none;
+      border-top: 1px #000 solid;
+      background: rgba(231, 96, 158 ,0.6);
+    }
+
+    h1{
+      margin:0;
+    }
+
+    @media screen and (min-width: 768px){
+      h1 br{display:none;}
+    }
+
+  </style>
+
+  <script type="module">
+    onload = async () => {
+
+      const data = await d3.csv('./data/baby.csv');
+      const max = data.length;
+
+      info.innerHTML = "";
+
+      for (let i = 0; i < max; i++){
+
+        let dd = new Date(data[i].date);
+
+        let day = dd.toLocaleString();
+
+        day = day.split("/")[0] + "年" + day.split("/")[1] + "月" + day.split("/")[2].split(" ")[0] + "日";
+
+        info.innerHTML += "<li class='p-5'><h3 class='text-xl'>" + data[i].week + "（" + day + "）</h3>" + data[i].overview + "<br><img src='./images/baby/" + data[i].id + ".jpg' onerror='this.remove()' width='100%'>" + "</li>"; 
+
+      }
+
+
+    }
+  </script>
+</head>
+
+<body>
+  <center>
+    <div class="container pt-3">
+
+      <h1 class="text-xl my-5">すくすく赤ちゃん成長記録</h1>
+
+      <ul>
+        <div id="info"></div>
+      </ul>
+
+    </div>
+  </center>
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-MPP84V2NHB"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-MPP84V2NHB');
+  </script>
+
+</body>
+
+</html>

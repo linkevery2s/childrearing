@@ -1,0 +1,458 @@
+<!DOCTYPE HTML>
+<html lang="ja">
+<title>一宮市ママパパマップ</title>
+<head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# article: http://ogp.me/ns/article#">
+	<meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" >
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin="" />
+	<script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js" integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-hash/0.2.1/leaflet-hash.min.js" integrity="sha512-0A4MbfuZq5Au9EdpI1S5rUTXlibNBi8CuZ/X3ycwXyZiCjNzpiO9YH6EMqPgzZm6vfNCuZStBQHjnO17nIC0IQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.min.js" integrity="sha512-8BqQ2RH4L4sQhV41ZB24fUc1nGcjmrTA6DILV/aTPYuUzo+wBdYdp0fvQ76Sxgf36p787CXF7TktWlcxu/zyOg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css" integrity="sha512-cUoWMYmv4H9TGP4hbm1mIjYo90WzIQFo/5jj+P5tQcDTf+iVR59RyIj/a9fRsBxzxt5Dnv/Ex7MzRIxcDwaOLw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js" integrity="sha512-uKQ39gEGiyUJl4AI6L+ekBdGKpGw4xJ55+xyJG7YFlJokPNYegn9KwQ3P8A7aFQAUtUsAQHep+d/lrGqrbPIDQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet-easybutton@2/src/easy-button.css">
+	<script src="https://cdn.jsdelivr.net/npm/leaflet-easybutton@2/src/easy-button.js"></script>
+
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet-pulse-icon@0.1.0/src/L.Icon.Pulse.min.css">
+	<script src="https://cdn.jsdelivr.net/npm/leaflet-pulse-icon@0.1.0/src/L.Icon.Pulse.min.js"></script>
+
+	<script src="data/toilet.geojson"></script>
+	<script src="data/milk.geojson"></script>
+	<script src="data/square.geojson"></script>
+	<script src="data/child.geojson"></script>
+	<script src="data/childrenhouse.geojson"></script>
+
+	<style>
+		html, body, #map{
+			width: 100%;
+			height: 100%;
+			padding: 0;
+			margin: 0;
+			z-index: 0;
+		}
+
+		#app{
+			cursor: pointer;
+			z-index: 1;
+		}
+
+		.awesome-marker {
+			font-size: 15px;
+			padding-top: 5px;
+		}
+
+		@keyframes fadeIn {
+			0% {
+				opacity: 0;
+			}
+
+			100% {
+				opacity: 1;
+			}
+		}
+
+		.modal {
+			display: none;
+			height: 100vh;
+			position: fixed;
+			top: 0;
+			width: 100%;
+			z-index: 20;
+			animation-name: fadeIn;
+			animation-duration: 2s;
+		}
+
+		.modal_bg {
+			background: rgba(0, 0, 0, 0.8);
+			height: 100vh;
+			position: absolute;
+			width: 100%;
+		}
+
+		.modal_content {
+			left: 50%;
+			position: absolute;
+			top: 50%;
+			transform: translate(-50%, -50%);
+			width: 85%;
+			max-width: 600px;
+			background: #ffffff;
+			padding: 10px;
+			height: 450px;
+
+		}
+
+		.closed {
+			position: absolute;
+			right: 0px;
+			top: -40px;
+			border-radius: 50%;
+			width: 30px;
+			height: 30px;
+			z-index: 30;
+			display: block;
+			text-align: center;
+			font-size: 20px;
+			color: #ffffff;
+			line-height: 25px;
+			cursor: pointer;
+			border: 1px solid #ffffff;
+			background: rgba(255, 255, 255, .25);
+		}
+
+		.closed:hover{
+			background: rgba(255, 255, 255, .65);
+		}
+
+		.closed a {
+			text-decoration: none;
+			border: none;
+		}
+
+		.js-modal-close{
+			color: #ffffff;
+		}
+
+		h1{
+			position: relative;
+		}
+
+		h1:after{
+			content: "";
+			position: absolute;
+			left: 0;
+			bottom: 0;
+			width: 100%;
+			height: 7px;
+			background: -webkit-repeating-linear-gradient(-45deg, #6ad1c8, #6ad1c8 2px, #fff 2px, #fff 4px);
+			background: repeating-linear-gradient(-45deg, #6ad1c8, #6ad1c8 2px, #fff 2px, #fff 4px);
+		}
+
+		.kaisetu{
+			width: 100%;
+			height: 100%;
+			padding: 0;
+			margin: 0;
+			overflow-y: scroll;
+		}
+
+		.kaisetu a{
+			color: #16a085 !important;
+			border-bottom: 1px dotted #16a085;;
+		}
+
+		#baby{
+			background: pink;
+			color: #ffffff;
+			padding: 10px;
+			border-radius: 100%;
+		}
+
+		#person_breastfeeding{
+			background: #33CCFF;
+			color: #ffffff;
+			padding: 10px;
+			border-radius: 100%;	
+		}
+
+		#home_orange{
+			background: orange;
+			color: #ffffff;
+			padding: 10px;
+			border-radius: 100%;	
+		}
+
+		#home_brown{
+			background: brown;
+			color: #ffffff;
+			padding: 10px;
+			border-radius: 100%;	
+		}
+
+		#park{
+			background: green;
+			padding: 10px;
+			border-radius: 100%;	
+		}
+
+		#mail_submit{
+			border-radius: 5px;
+		}
+
+		.wrapper {
+			display: grid;
+			grid-template-columns: repeat(2, 1fr);
+		}
+
+
+
+	</style>
+
+	<title>一宮市ママパパマップ</title>
+
+	<script type="module">
+
+		import { green } from "https://cdn.jsdelivr.net/gh/linkevery2s/sourcecode@main/leaflet/marker_color/marker_color.mjs";
+
+		let map;
+
+		onload = async () => {
+
+			map = L.map('map',{zoomControl: false});
+
+			/* コントロールボタン */
+			L.control.zoom( { position: 'topright' } ).addTo( map );
+
+			const hash = new L.Hash(map);
+
+			let url_hash = location.hash;
+			if(url_hash === ""){map.setView([35.3138, 136.7960], 13);}
+
+			const tiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+				maxZoom: 19,
+				attribution: '&copy; <a href="http://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap Contributors</a>'
+			}).addTo(map);
+
+			let gps_button = L.easyButton('fa-location-arrow', function(){ GPS();}, {position: 'topright'}).addTo( map );
+
+
+			/* 乳幼児対応トイレ */
+			let toilet_m= L.geoJSON(toilet, {onEachFeature: popup_toilet, pointToLayer: toilet_pink});
+
+			map.addLayer(toilet_m);
+
+			/* 赤ちゃんの駅 */
+			let milk_m= L.geoJSON(milk, {onEachFeature: popup_milk, pointToLayer: milk_blue});
+
+			map.addLayer(milk_m);
+
+			/* ちびっ子広場 */
+			let square_m= L.geoJSON(square, {onEachFeature: popup_square, pointToLayer: green});
+
+			map.addLayer(square_m);
+
+			/* 子育て支援センター */
+			let child_m= L.geoJSON(child, {onEachFeature: popup_child, pointToLayer: child_orange});
+
+			map.addLayer(child_m);
+
+			/* 児童館 */
+			let childrenhouse_m = L.geoJSON(childrenhouse, {onEachFeature: popup_childrenhouse, pointToLayer: childrenhouse_brown});
+
+			map.addLayer(childrenhouse_m);
+
+		}
+
+		/* Font Awesome */
+		let toilet_pink =  (feature, latlng) => {
+			let marker = new L.marker(latlng, {icon: L.AwesomeMarkers.icon({icon: 'baby', prefix: 'fa', markerColor: 'pink'}) });
+			return marker;
+		}
+
+		let milk_blue =  (feature, latlng) => {
+			let marker = new L.marker(latlng, {icon: L.AwesomeMarkers.icon({icon: 'person-breastfeeding', prefix: 'fa', markerColor: 'blue'}) });
+			return marker;
+		}
+
+		let child_orange =  (feature, latlng) => {
+			let marker = new L.marker(latlng, {icon: L.AwesomeMarkers.icon({icon: 'home', prefix: 'fa', markerColor: 'orange'}) });
+			return marker;
+		}
+
+		let childrenhouse_brown =  (feature, latlng) => {
+			let marker = new L.marker(latlng, {icon: L.AwesomeMarkers.icon({icon: 'home', prefix: 'fa', markerColor: 'brown'}) });
+			return marker;
+		}
+
+
+		/* Popup Display */
+		let popup_toilet = (feature, layer) => {
+			let popup;
+			if (feature.properties && feature.properties.name) {
+				popup = "名称：" + feature.properties.name;
+
+				popup += "<br>住所：" + feature.properties.address;
+
+				popup += "<br>TEL：" + feature.properties.tel;
+
+				if(feature.properties.floor != ""){
+					popup += "<br>場所：" + feature.properties.floor;
+				}else{}
+
+				if(feature.properties.start != ""){
+					popup += "<br>時間帯：" + feature.properties.start + "〜" + feature.properties.exit;
+				}else{}
+
+				if(feature.properties.time_remarks != ""){
+					popup += "<br>※" + feature.properties.time_remarks; 
+				}else{}
+
+				if(feature.properties.remarks1 != ""){
+					popup += "<br><br>備考：" + feature.properties.remarks1; 
+				}else{}	
+
+				if(feature.properties.remarks2 != ""){
+					popup += "、" + feature.properties.remarks2; 
+				}else{}
+
+
+			}else{};
+
+			layer.bindPopup(popup);
+		}
+
+		let popup_milk = (feature, layer) => {
+			let popup;
+			if (feature.properties && feature.properties.name) {
+				popup = "名称：" + feature.properties.name;
+
+				popup += "<br>住所：" + feature.properties.address;
+
+				popup += "<br>TEL：" + feature.properties.tel;
+
+				if(feature.properties.place != ""){
+					popup += "<br>場所：<br>" + feature.properties.place;
+				}else{}
+
+				if(feature.properties.time != ""){
+					popup += "<br><br>時間帯：" + feature.properties.time;
+				}else{}
+
+				if(feature.properties.url != ""){
+					popup += "<br><br><a href='" + feature.properties.url +"' target='_blank'>詳細URL</a>"; 
+				}else{}
+
+
+			}else{};
+
+			layer.bindPopup(popup);
+		}
+
+		let popup_square = (feature, layer) => {
+			let popup;
+			if (feature.properties && feature.properties.name) {
+				popup = "名称：" + feature.properties.name;
+
+				popup += "<br>住所：" + feature.properties.address;
+
+			}else{};
+
+			layer.bindPopup(popup);
+		}
+
+		let popup_child = (feature, layer) => {
+			let popup;
+			if (feature.properties && feature.properties.name) {
+				popup = "名称：" + feature.properties.name;
+
+				popup += "<br>住所：" + feature.properties.address;
+
+				popup += "<br>TEL：" + feature.properties.tel;
+
+			}else{};
+
+			layer.bindPopup(popup);
+		}		
+
+		let popup_childrenhouse = (feature, layer) => {
+			let popup;
+			if (feature.properties && feature.properties.name) {
+				popup = "名称：" + feature.properties.name;
+
+				popup += "<br>住所：" + feature.properties.address;
+
+			}else{};
+
+			layer.bindPopup(popup);
+		}	
+
+		let ido; let keido; let marker;
+		let gps_get = (position) => {
+			ido = position.coords.latitude;
+			keido = position.coords.longitude;
+			map.setView([ido, keido], 15);
+
+			let pulsingIcon = L.icon.pulse({iconSize:[12,12],color:'blue', fillColor: 'blue'});
+
+			if(map && marker){
+				map.removeLayer(marker);
+				marker = null;
+			}
+
+			marker = L.marker([ido, keido] ,{icon: pulsingIcon}).addTo(map);
+
+		}
+
+		let gps_error = (error) => {
+			alert("エラーが発生したので、現在地を取得できませんでした。");
+		}
+
+		let GPS = () =>{
+			if (navigator.geolocation) {
+				navigator.geolocation.getCurrentPosition(gps_get,gps_error);
+			} else {
+				alert("エラーが発生したので、現在地を取得できませんでした。");
+			}
+		}
+
+
+	</script>
+
+	<!-- tailwind -->
+	<script src="https://cdn.tailwindcss.com"></script>
+
+	<!-- jQuery -->
+	<script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.qrcode/1.0/jquery.qrcode.min.js" integrity="sha512-NFUcDlm4V+a2sjPX7gREIXgCSFja9cHtKPOL1zj6QhnE0vcY695MODehqkaGYTLyL2wxe/wtr4Z49SvqXq12UQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+</head>
+<body>
+
+	<div id='map'></div>
+
+	<div class="modal js-modal">
+		<div class="modal_bg" onClick="closed2();"></div>
+
+		　　<div class="modal_content"><span class="closed" onClick="closed2();">×</span>
+
+			<div class="kaisetu">
+
+				<h1 class="text-3xl pb-1 mb-5">凡例</h1>
+
+				<p class="my-5"><span id="baby"><i class="fa-solid fa-baby"></i></span> ••• 乳幼児対応トイレ</p>
+
+				<p class="my-5"><span id="person_breastfeeding"><i class="fa-solid fa-person-breastfeeding"></i></span> ••• 授乳・おむつ替えスペース</p>
+
+				<p class="my-5"><span id="home_orange"><i class="fa-solid fa-home"></i></span> ••• 子育て支援施設</p>
+
+				<p class="my-5"><span id="home_brown"><i class="fa-solid fa-home"></i></span> ••• 児童館</p>
+
+				<p class="my-5"><span id="park">　</span> ••• ちびっ子広場</p>
+
+			</div>
+
+		　　</div>
+	</div>
+
+	<!-- Google tag (gtag.js) -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-MPP84V2NHB"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+
+		gtag('config', 'G-MPP84V2NHB');
+	</script>
+
+</body>
+</html>
