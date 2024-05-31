@@ -1,23 +1,38 @@
 <!DOCTYPE HTML>
 <html lang="ja">
 <title>一宮市ママパパマップ</title>
+
 <head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# article: http://ogp.me/ns/article#">
-	<meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" >
+	<meta charset="UTF-8" name="viewport"
+		content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 
 
-	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin="" />
-	<script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js" integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
+		integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin="" />
+	<script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
+		integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
 
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-hash/0.2.1/leaflet-hash.min.js" integrity="sha512-0A4MbfuZq5Au9EdpI1S5rUTXlibNBi8CuZ/X3ycwXyZiCjNzpiO9YH6EMqPgzZm6vfNCuZStBQHjnO17nIC0IQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-hash/0.2.1/leaflet-hash.min.js"
+		integrity="sha512-0A4MbfuZq5Au9EdpI1S5rUTXlibNBi8CuZ/X3ycwXyZiCjNzpiO9YH6EMqPgzZm6vfNCuZStBQHjnO17nIC0IQ=="
+		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.min.js" integrity="sha512-8BqQ2RH4L4sQhV41ZB24fUc1nGcjmrTA6DILV/aTPYuUzo+wBdYdp0fvQ76Sxgf36p787CXF7TktWlcxu/zyOg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.min.js"
+		integrity="sha512-8BqQ2RH4L4sQhV41ZB24fUc1nGcjmrTA6DILV/aTPYuUzo+wBdYdp0fvQ76Sxgf36p787CXF7TktWlcxu/zyOg=="
+		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css" integrity="sha512-cUoWMYmv4H9TGP4hbm1mIjYo90WzIQFo/5jj+P5tQcDTf+iVR59RyIj/a9fRsBxzxt5Dnv/Ex7MzRIxcDwaOLw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+	<link rel="stylesheet"
+		href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"
+		integrity="sha512-cUoWMYmv4H9TGP4hbm1mIjYo90WzIQFo/5jj+P5tQcDTf+iVR59RyIj/a9fRsBxzxt5Dnv/Ex7MzRIxcDwaOLw=="
+		crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+		integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+		crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js" integrity="sha512-uKQ39gEGiyUJl4AI6L+ekBdGKpGw4xJ55+xyJG7YFlJokPNYegn9KwQ3P8A7aFQAUtUsAQHep+d/lrGqrbPIDQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js"
+		integrity="sha512-uKQ39gEGiyUJl4AI6L+ekBdGKpGw4xJ55+xyJG7YFlJokPNYegn9KwQ3P8A7aFQAUtUsAQHep+d/lrGqrbPIDQ=="
+		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet-easybutton@2/src/easy-button.css">
 	<script src="https://cdn.jsdelivr.net/npm/leaflet-easybutton@2/src/easy-button.js"></script>
@@ -32,7 +47,9 @@
 	<script src="data/childrenhouse.geojson"></script>
 
 	<style>
-		html, body, #map{
+		html,
+		body,
+		#map {
 			width: 100%;
 			height: 100%;
 			padding: 0;
@@ -40,7 +57,7 @@
 			z-index: 0;
 		}
 
-		#app{
+		#app {
 			cursor: pointer;
 			z-index: 1;
 		}
@@ -109,7 +126,7 @@
 			background: rgba(255, 255, 255, .25);
 		}
 
-		.closed:hover{
+		.closed:hover {
 			background: rgba(255, 255, 255, .65);
 		}
 
@@ -118,15 +135,15 @@
 			border: none;
 		}
 
-		.js-modal-close{
+		.js-modal-close {
 			color: #ffffff;
 		}
 
-		h1{
+		h1 {
 			position: relative;
 		}
 
-		h1:after{
+		h1:after {
 			content: "";
 			position: absolute;
 			left: 0;
@@ -137,7 +154,7 @@
 			background: repeating-linear-gradient(-45deg, #6ad1c8, #6ad1c8 2px, #fff 2px, #fff 4px);
 		}
 
-		.kaisetu{
+		.kaisetu {
 			width: 100%;
 			height: 100%;
 			padding: 0;
@@ -145,46 +162,47 @@
 			overflow-y: scroll;
 		}
 
-		.kaisetu a{
+		.kaisetu a {
 			color: #16a085 !important;
-			border-bottom: 1px dotted #16a085;;
+			border-bottom: 1px dotted #16a085;
+			;
 		}
 
-		#baby{
+		#baby {
 			background: pink;
 			color: #ffffff;
 			padding: 10px;
 			border-radius: 100%;
 		}
 
-		#person_breastfeeding{
+		#person_breastfeeding {
 			background: #33CCFF;
 			color: #ffffff;
 			padding: 10px;
-			border-radius: 100%;	
+			border-radius: 100%;
 		}
 
-		#home_orange{
+		#home_orange {
 			background: orange;
 			color: #ffffff;
 			padding: 10px;
-			border-radius: 100%;	
+			border-radius: 100%;
 		}
 
-		#home_brown{
+		#home_brown {
 			background: brown;
 			color: #ffffff;
 			padding: 10px;
-			border-radius: 100%;	
+			border-radius: 100%;
 		}
 
-		#park{
+		#park {
 			background: green;
 			padding: 10px;
-			border-radius: 100%;	
+			border-radius: 100%;
 		}
 
-		#mail_submit{
+		#mail_submit {
 			border-radius: 5px;
 		}
 
@@ -193,7 +211,7 @@
 			grid-template-columns: repeat(2, 1fr);
 		}
 
-		.leaflet-popup-content{
+		.leaflet-popup-content {
 			max-width: 250px !important;
 		}
 
@@ -209,46 +227,46 @@
 
 		onload = async () => {
 
-			map = L.map('map',{zoomControl: false});
+			map = L.map('map', { zoomControl: false });
 
 			/* コントロールボタン */
-			L.control.zoom( { position: 'topright' } ).addTo( map );
+			L.control.zoom({ position: 'topright' }).addTo(map);
 
 			const hash = new L.Hash(map);
 
 			let url_hash = location.hash;
-			if(url_hash === ""){map.setView([35.3138, 136.7960], 13);}
+			if (url_hash === "") { map.setView([35.3138, 136.7960], 12); }
 
 			const tiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
 				maxZoom: 19,
 				attribution: '&copy; <a href="http://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap Contributors</a>'
 			}).addTo(map);
 
-			let gps_button = L.easyButton('fa-location-arrow', function(){ GPS();}, {position: 'topright'}).addTo( map );
+			let gps_button = L.easyButton('fa-location-arrow', function () { GPS(); }, { position: 'topright' }).addTo(map);
 
 
 			/* 乳幼児対応トイレ */
-			let toilet_m= L.geoJSON(toilet, {onEachFeature: popup_toilet, pointToLayer: toilet_pink});
+			let toilet_m = L.geoJSON(toilet, { onEachFeature: popup_toilet, pointToLayer: toilet_pink });
 
 			map.addLayer(toilet_m);
 
 			/* 赤ちゃんの駅 */
-			let milk_m= L.geoJSON(milk, {onEachFeature: popup_milk, pointToLayer: milk_blue});
+			let milk_m = L.geoJSON(milk, { onEachFeature: popup_milk, pointToLayer: milk_blue });
 
 			map.addLayer(milk_m);
 
 			/* ちびっ子広場 */
-			let square_m= L.geoJSON(square, {onEachFeature: popup_square, pointToLayer: green});
+			let square_m = L.geoJSON(square, { onEachFeature: popup_square, pointToLayer: green });
 
 			map.addLayer(square_m);
 
 			/* 子育て支援センター */
-			let child_m= L.geoJSON(child, {onEachFeature: popup_child, pointToLayer: child_orange});
+			let child_m = L.geoJSON(child, { onEachFeature: popup_child, pointToLayer: child_orange });
 
 			map.addLayer(child_m);
 
 			/* 児童館 */
-			let childrenhouse_m = L.geoJSON(childrenhouse, {onEachFeature: popup_childrenhouse, pointToLayer: childrenhouse_brown});
+			let childrenhouse_m = L.geoJSON(childrenhouse, { onEachFeature: popup_childrenhouse, pointToLayer: childrenhouse_brown });
 
 			map.addLayer(childrenhouse_m);
 
@@ -260,18 +278,18 @@
 			return marker;
 		}
 
-		let milk_blue =  (feature, latlng) => {
-			let marker = new L.marker(latlng, {icon: L.AwesomeMarkers.icon({icon: 'person-breastfeeding', prefix: 'fa', markerColor: 'blue'}) });
+		let milk_blue = (feature, latlng) => {
+			let marker = new L.marker(latlng, { icon: L.AwesomeMarkers.icon({ icon: 'person-breastfeeding', prefix: 'fa', markerColor: 'blue' }) });
 			return marker;
 		}
 
-		let child_orange =  (feature, latlng) => {
-			let marker = new L.marker(latlng, {icon: L.AwesomeMarkers.icon({icon: 'home', prefix: 'fa', markerColor: 'orange'}) });
+		let child_orange = (feature, latlng) => {
+			let marker = new L.marker(latlng, { icon: L.AwesomeMarkers.icon({ icon: 'home', prefix: 'fa', markerColor: 'orange' }) });
 			return marker;
 		}
 
-		let childrenhouse_brown =  (feature, latlng) => {
-			let marker = new L.marker(latlng, {icon: L.AwesomeMarkers.icon({icon: 'home', prefix: 'fa', markerColor: 'brown'}) });
+		let childrenhouse_brown = (feature, latlng) => {
+			let marker = new L.marker(latlng, { icon: L.AwesomeMarkers.icon({ icon: 'home', prefix: 'fa', markerColor: 'brown' }) });
 			return marker;
 		}
 
@@ -286,28 +304,28 @@
 
 				popup += "<br>TEL：" + feature.properties.tel;
 
-				if(feature.properties.floor != ""){
+				if (feature.properties.floor != "") {
 					popup += "<br>場所：" + feature.properties.floor;
-				}else{}
+				} else { }
 
-				if(feature.properties.start != ""){
+				if (feature.properties.start != "") {
 					popup += "<br>時間帯：" + feature.properties.start + "〜" + feature.properties.exit;
-				}else{}
+				} else { }
 
-				if(feature.properties.time_remarks != ""){
-					popup += "<br>※" + feature.properties.time_remarks; 
-				}else{}
+				if (feature.properties.time_remarks != "") {
+					popup += "<br>※" + feature.properties.time_remarks;
+				} else { }
 
-				if(feature.properties.remarks1 != ""){
-					popup += "<br><br>備考：" + feature.properties.remarks1; 
-				}else{}	
+				if (feature.properties.remarks1 != "") {
+					popup += "<br><br>備考：" + feature.properties.remarks1;
+				} else { }
 
-				if(feature.properties.remarks2 != ""){
-					popup += "、" + feature.properties.remarks2; 
-				}else{}
+				if (feature.properties.remarks2 != "") {
+					popup += "、" + feature.properties.remarks2;
+				} else { }
 
 
-			}else{};
+			} else { };
 
 			layer.bindPopup(popup);
 		}
@@ -321,20 +339,20 @@
 
 				popup += "<br>TEL：" + feature.properties.tel;
 
-				if(feature.properties.place != ""){
+				if (feature.properties.place != "") {
 					popup += "<br>場所：<br>" + feature.properties.place;
-				}else{}
+				} else { }
 
-				if(feature.properties.time != ""){
+				if (feature.properties.time != "") {
 					popup += "<br><br>時間帯：" + feature.properties.time;
-				}else{}
+				} else { }
 
-				if(feature.properties.url != ""){
-					popup += "<br><br><a href='" + feature.properties.url +"' target='_blank'>詳細URL</a>"; 
-				}else{}
+				if (feature.properties.url != "") {
+					popup += "<br><br><a href='" + feature.properties.url + "' target='_blank'>詳細URL</a>";
+				} else { }
 
 
-			}else{};
+			} else { };
 
 			layer.bindPopup(popup);
 		}
@@ -346,7 +364,7 @@
 
 				popup += "<br>住所：" + feature.properties.address;
 
-			}else{};
+			} else { };
 
 			layer.bindPopup(popup);
 		}
@@ -360,10 +378,10 @@
 
 				popup += "<br>TEL：" + feature.properties.tel;
 
-			}else{};
+			} else { };
 
 			layer.bindPopup(popup);
-		}		
+		}
 
 		let popup_childrenhouse = (feature, layer) => {
 			let popup;
@@ -372,10 +390,10 @@
 
 				popup += "<br>住所：" + feature.properties.address;
 
-			}else{};
+			} else { };
 
 			layer.bindPopup(popup);
-		}	
+		}
 
 		let ido; let keido; let marker;
 		let gps_get = (position) => {
@@ -383,14 +401,14 @@
 			keido = position.coords.longitude;
 			map.setView([ido, keido], 15);
 
-			let pulsingIcon = L.icon.pulse({iconSize:[12,12],color:'blue', fillColor: 'blue'});
+			let pulsingIcon = L.icon.pulse({ iconSize: [12, 12], color: 'blue', fillColor: 'blue' });
 
-			if(map && marker){
+			if (map && marker) {
 				map.removeLayer(marker);
 				marker = null;
 			}
 
-			marker = L.marker([ido, keido] ,{icon: pulsingIcon}).addTo(map);
+			marker = L.marker([ido, keido], { icon: pulsingIcon }).addTo(map);
 
 		}
 
@@ -398,9 +416,9 @@
 			alert("エラーが発生したので、現在地を取得できませんでした。");
 		}
 
-		let GPS = () =>{
+		let GPS = () => {
 			if (navigator.geolocation) {
-				navigator.geolocation.getCurrentPosition(gps_get,gps_error);
+				navigator.geolocation.getCurrentPosition(gps_get, gps_error);
 			} else {
 				alert("エラーが発生したので、現在地を取得できませんでした。");
 			}
@@ -413,11 +431,15 @@
 	<script src="https://cdn.tailwindcss.com"></script>
 
 	<!-- jQuery -->
-	<script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+	<script src="https://code.jquery.com/jquery-3.7.0.min.js"
+		integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
 
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.qrcode/1.0/jquery.qrcode.min.js" integrity="sha512-NFUcDlm4V+a2sjPX7gREIXgCSFja9cHtKPOL1zj6QhnE0vcY695MODehqkaGYTLyL2wxe/wtr4Z49SvqXq12UQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.qrcode/1.0/jquery.qrcode.min.js"
+		integrity="sha512-NFUcDlm4V+a2sjPX7gREIXgCSFja9cHtKPOL1zj6QhnE0vcY695MODehqkaGYTLyL2wxe/wtr4Z49SvqXq12UQ=="
+		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 </head>
+
 <body>
 
 	<div id='map'></div>
@@ -433,7 +455,8 @@
 
 				<p class="my-5"><span id="baby"><i class="fa-solid fa-baby"></i></span> ••• 乳幼児対応トイレ</p>
 
-				<p class="my-5"><span id="person_breastfeeding"><i class="fa-solid fa-person-breastfeeding"></i></span> ••• 授乳・おむつ替えスペース</p>
+				<p class="my-5"><span id="person_breastfeeding"><i class="fa-solid fa-person-breastfeeding"></i></span>
+					••• 授乳・おむつ替えスペース</p>
 
 				<p class="my-5"><span id="home_orange"><i class="fa-solid fa-home"></i></span> ••• 子育て支援施設</p>
 
@@ -443,18 +466,20 @@
 
 			</div>
 
-		　　</div>
+			　　
+		</div>
 	</div>
 
 	<!-- Google tag (gtag.js) -->
 	<script async src="https://www.googletagmanager.com/gtag/js?id=G-MPP84V2NHB"></script>
 	<script>
 		window.dataLayer = window.dataLayer || [];
-		function gtag(){dataLayer.push(arguments);}
+		function gtag() { dataLayer.push(arguments); }
 		gtag('js', new Date());
 
 		gtag('config', 'G-MPP84V2NHB');
 	</script>
 
 </body>
+
 </html>
