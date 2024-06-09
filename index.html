@@ -170,8 +170,8 @@
 
         #manual,#babygrowth,#parentmap {
             display: none;
-            height: 75%;
-            max-height: 800px;
+            height: 80%;
+            max-height: 900px;
             left: 50%;
             position: absolute;
             top: 50%;
@@ -193,7 +193,7 @@
             padding-bottom: 3px;
         }
 
-        .fa-baby {
+        .fa-baby,.fa-map-location-dot {
             color: #e95295;
         }
 
@@ -343,6 +343,7 @@
         );
 
         const manual_button = document.querySelector(".manual-btn");
+        const overlay = document.querySelector("#overlay");
         const closed_btn = document.querySelector("#closed-btn");
         const closed_btn2 = document.querySelector("#closed-btn2");
         const closed_btn3 = document.querySelector("#closed-btn3");
@@ -350,6 +351,14 @@
         manual_button.addEventListener("click", () => {
             $('#overlay').fadeIn();
             $("#manual").fadeIn();
+        });
+
+        overlay.addEventListener("click", () => {
+            $('#overlay').fadeOut();
+            $("#manual").fadeOut();
+            $("#babygrowth").fadeOut();
+            $("#parentmap").fadeOut();
+
         });
 
         closed_btn.addEventListener("click", () => {
