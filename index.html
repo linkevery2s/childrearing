@@ -15,8 +15,8 @@
     <meta name="twitter:image" content="https://childrearinglife.netlify.app/images/ogp.png" />
     <meta name="author" content="Code for Ichinomiya">
     <meta name="keywords" content="子育て,ママパパマップ,楽しむ,育児" />
-    <link rel="apple-touch-icon" href="./images/apple-touch-icon.png">
-    <link rel="icon" href="./images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" href="./images/apple-touch-icon.jpg">
+    <link rel="icon" href="./images/apple-touch-icon.jpg">
 
     <script src="https://cdn.tailwindcss.com"></script>
 
@@ -168,7 +168,9 @@
             z-index: 5;
         }
 
-        #manual,#babygrowth,#parentmap {
+        #manual,
+        #babygrowth,
+        #parentmap {
             display: none;
             height: 80%;
             max-height: 900px;
@@ -193,7 +195,8 @@
             padding-bottom: 3px;
         }
 
-        .fa-baby,.fa-map-location-dot {
+        .fa-baby,
+        .fa-map-location-dot {
             color: #e95295;
         }
 
@@ -254,6 +257,11 @@
                 <img src="./images/parentmap.jpg" width="100%" alt="ママパパマップの写真" class="mt-3">
             </div>
 
+            <a href="./images/vaccine_schedule.png" data-lightbox="ワクチン予定表" data-title="出典：子どもを守る会"><div id="menu" class="vaccine-schedule text-center text-sm md:text-lg p-3">
+                ワクチン<br>予定表
+                <img src="./images/schedule.jpg" width="100%" alt="ワクチン予定表の写真" class="mt-3">
+            </div></a>
+
         </div>
 
     </div>
@@ -291,7 +299,7 @@
 
     <!-- すくすく赤ちゃん成長記録 -->
     <div id="babygrowth" class="p-3"><span id="closed-btn2">×</span>
-        <h3 class="text-xl text-center"><i class="fa-solid fa-baby"></i> すくすく赤ちゃん成長記録</h3>
+        <h3 class="text-xl text-center"><i class="fa-solid fa-baby"></i> 赤ちゃん成長記録</h3>
         <iframe src="./babygrowth.html" class="mt-2" width="100%" height="93%"></iframe>
     </div>
 
@@ -375,6 +383,23 @@
             $("#parentmap").fadeOut();
             $('#overlay').fadeOut();
         });
+
+    </script>
+
+    <!-- lightbox2 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/js/lightbox-plus-jquery.min.js"
+        integrity="sha512-U9dKDqsXAE11UA9kZ0XKFyZ2gQCj+3AwZdBMni7yXSvWqLFEj8C1s7wRmWl9iyij8d5zb4wm56j4z/JVEwS77g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/css/lightbox.min.css"
+        integrity="sha512-ZKX+BvQihRJPA8CROKBhDNvoc2aDMOdAlcm7TUQY+35XYtrd3yh95QOOhsPDQY9QnKE0Wqag9y38OIgEvb88cA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- lightbox2 options-->
+    <script>
+        lightbox.option({
+            "alwaysShowNavOnTouchDevices": true,
+            "disableScrolling": true
+        })
 
     </script>
 
