@@ -1,17 +1,17 @@
 <!DOCTYPE HTML>
 <html lang="ja">
-<title>すくすく子育てLIFE</title>
+<title>すくすく子育てライフ</title>
 
 <head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# article: http://ogp.me/ns/article#">
     <meta charset="UTF-8" name="viewport"
         content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta property="og:title" content="すくすく子育てLIFE" />
+    <meta property="og:title" content="すくすく子育てライフ" />
     <meta property="og:type" content="website" />
     <meta property="og:image" content="https://childrearinglife.netlify.app/images/ogp.png" />
     <meta name="description" content="子育ての楽しさを広めたい！ママもパパも、お子さん達と共に成長し、楽しんで生活できたら、という思いからこのアプリを開発しました。" />
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="すくすく子育てLIFE" />
+    <meta name="twitter:title" content="すくすく子育てライフ" />
     <meta name="twitter:image" content="https://childrearinglife.netlify.app/images/ogp.png" />
     <meta name="author" content="Code for Ichinomiya">
     <meta name="keywords" content="子育て,ママパパマップ,楽しむ,育児" />
@@ -96,11 +96,10 @@
         }
 
         #main {
-            position: fixed;
+            position: absolute;
             margin: 0;
             padding: 0;
             width: 100%;
-            height: 100%;
             max-width: 600px;
             top: 120px;
             left: 50%;
@@ -237,7 +236,7 @@
     <div id="header">
         <center>
             <span class="title-icon"><i class="fa-regular fa-face-smile-beam fa-xl"></i></span>
-            <div class="title">すくすく子育てLIFE</div>
+            <div class="title">すくすく子育てライフ</div>
         </center>
 
     </div>
@@ -245,11 +244,11 @@
     <!-- メインコンテンツ -->
     <div id="main">
 
-        <div class="grid gap-2 grid-cols-3 grid-rows-7 mx-5">
+        <div class="grid gap-2 grid-cols-3 grid-rows-2 mx-5">
 
             <div id="menu" class="babygrowth text-center text-sm md:text-lg p-3">
                 赤ちゃん<br>成長記録
-                <img src="./images/back.jpg" width="100%" alt="赤ちゃんの写真" class="mt-3">
+                <img src="./images/baby.jpg" width="100%" alt="赤ちゃんの写真" class="mt-3">
             </div>
 
             <div id="menu" class="parentmap text-center text-sm md:text-lg p-3">
@@ -257,11 +256,34 @@
                 <img src="./images/parentmap.jpg" width="100%" alt="ママパパマップの写真" class="mt-3">
             </div>
 
-            <a href="./images/vaccine_schedule.png" data-lightbox="ワクチン予定表" data-title="出典：子どもを守る会"><div id="menu" class="vaccine-schedule text-center text-sm md:text-lg p-3">
+            <a href="./images/vaccine_schedule.png" data-lightbox="ワクチン予定表" data-title="出典：子どもを守る会">
+                <div id="menu" class="vaccine-schedule text-center text-sm md:text-lg p-3">
                 ワクチン<br>予定表
-                <img src="./images/schedule.jpg" width="100%" alt="ワクチン予定表の写真" class="mt-3">
+                <img src="./images/schedule.jpg" width="100%" alt="ワクチン予定表の写真" class="mt-3 mb-5">
             </div></a>
 
+            <div id="menu" class="babygrowth text-center text-sm md:text-lg p-3 mt-5">
+                発達過程
+                <img src="./images/baby.jpg" width="100%" alt="赤ちゃんの写真" class="mt-3">
+            </div>
+
+            <div id="menu" class="babygrowth text-center text-sm md:text-lg p-3 mt-5">
+                事故マップ
+                <img src="./images/baby.jpg" width="100%" alt="赤ちゃんの写真" class="mt-3">
+            </div>
+
+            <div id="menu" class="babygrowth text-center text-sm md:text-lg p-3 mt-5">
+                DIY挑戦
+                <img src="./images/baby.jpg" width="100%" alt="赤ちゃんの写真" class="mt-3">
+            </div>
+
+        </div>
+
+        <div class="grid gap-2 grid-cols-3 grid-rows-1 mx-5">
+        <div id="menu" class="babygrowth text-center col-span-3 text-sm md:text-lg p-3 mt-5">
+            夏休みシリーズ
+            <img src="./images/baby.jpg" width="100%" alt="赤ちゃんの写真" class="mt-3">
+        </div>
         </div>
 
     </div>
